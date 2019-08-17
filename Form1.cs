@@ -9,12 +9,18 @@ namespace _2C2P
         private object sender;
         private object listener;
         private object role;
+        public static PictureBox box;
 
         public Form1()
         {
+            box = pictureBox1;
+
             Options.NOT_CLOSED = true;
             InitializeComponent();            
             globalKeyboardHook gkh = new globalKeyboardHook();
+
+            Support.Capture cap = new Support.Capture();
+            cap.capture();
 
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length == 2)
@@ -33,7 +39,7 @@ namespace _2C2P
         }
         protected override void SetVisibleCore(bool value)
         {
-            base.SetVisibleCore(false);
+            base.SetVisibleCore(true);
         }
 
         public void InitADC()
@@ -51,6 +57,11 @@ namespace _2C2P
             listener = new Support.Listener();
             role = new Support.Support();
             Options.IS_SUPPORT = true;
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
