@@ -4,6 +4,12 @@ using System.Text;
 
 namespace _2C2P.Helper
 {
+    enum ImageRegion
+    {
+        enumNull,
+        skills,
+        items,
+    }
     enum key
     {
         _1,

@@ -2,5 +2,9 @@
 {
     class ADC
     {
+        public ADC()
+        {
+            
+        }
     }
 }

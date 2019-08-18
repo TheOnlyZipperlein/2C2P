@@ -43,7 +43,18 @@ namespace _2C2P.ADC
         private void loop()
         {
             TcpClient client = new TcpClient();
-            client.Connect(IPAddress.Parse(Options.IP_TO_CONNECT_TO), port);
+            while (!client.Connected)
+            {
+                try
+                {
+                    client.Connect(IPAddress.Parse(Options.IP_TO_CONNECT_TO), port);
+                }
+                catch (Exception e)
+                {
+                    //TODO
+                }
+                Thread.Sleep(50);
+            }
             NetworkStream stream = client.GetStream();
             Boolean b = true;
             Byte[] buffer = new Byte[5];

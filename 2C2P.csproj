@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,50 +76,31 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Capture">
+    <Reference Include="Capture, Version=1.0.0.0, Culture=neutral, PublicKeyToken=025161b358ea1a36, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Capture.dll</HintPath>
     </Reference>
     <Reference Include="EasyHook, Version=2.7.6578.0, Culture=neutral, PublicKeyToken=4b580fca19d0b0c5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\EasyHook.dll</HintPath>
-    </Reference>
-    <Reference Include="EasyLoad64">
-      <HintPath>lib\EasyLoad64.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX">
-      <HintPath>lib\SharpDX.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.D3DCompiler, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SharpDX.D3DCompiler.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Desktop">
-      <HintPath>lib\SharpDX.Desktop.dll</HintPath>
+    <Reference Include="Overlay.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\Overlay.NET.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SharpDX.Direct2D1.dll</HintPath>
+    <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\Process.NET.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D10, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SharpDX.Direct3D10.dll</HintPath>
+    <Reference Include="SharpDX, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11">
-      <HintPath>lib\SharpDX.Direct3D11.dll</HintPath>
+    <Reference Include="SharpDX.Direct2D1, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\SharpDX.Direct2D1.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11.Effects, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SharpDX.Direct3D11.Effects.dll</HintPath>
+    <Reference Include="SharpDX.DXGI, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\SharpDX.DXGI.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D9">
-      <HintPath>lib\SharpDX.Direct3D9.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SharpDX.DXGI.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Mathematics">
-      <HintPath>lib\SharpDX.Mathematics.dll</HintPath>
+    <Reference Include="SharpDX.Mathematics, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\Overlay.NET.1.0.2\lib\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
@@ -126,6 +122,8 @@
   <ItemGroup>
     <Compile Include="ADC\ADC.cs" />
     <Compile Include="ADC\Listener.cs" />
+    <Compile Include="ADC\Overlay.cs" />
+    <Compile Include="ADC\OverlaySettings.cs" />
     <Compile Include="ADC\Sender.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -136,6 +134,7 @@
     <Compile Include="Helper\CustomKeyEventHandler.cs" />
     <Compile Include="Helper\Enum.cs" />
     <Compile Include="Helper\Event.cs" />
+    <Compile Include="Helper\ImageContext.cs" />
     <Compile Include="Helper\KeyConverter.cs" />
     <Compile Include="Helper\globalKeyboardHook.cs" />
     <Compile Include="Helper\MouseListener.cs" />
@@ -173,24 +172,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EasyHook32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook32Svc.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyHook64Svc.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyLoad32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EasyLoad64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -40,10 +40,10 @@ namespace _2C2P.Support
                     switch(e.type)
                     {
                         case (int) type.keyUp:
-                            globalKeyboardHook.injectKey(KeyConverter.GetKey((key) e.data),(type) e.type);
+                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key) e.data),(type) e.type);
                             break;
                         case (int) type.keyDown:
-                            globalKeyboardHook.injectKey(KeyConverter.GetKey((key)e.data), (type)e.type);
+                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key)e.data), (type)e.type);
                             break;
                         case (int) type.mouse:
                             

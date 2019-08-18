@@ -42,7 +42,13 @@ namespace _2C2P.Helper
         /// Handles raw key input or just ingores it
         /// </summary>
         public CustomKeyEventHandler handler;
+        private IntPtr hInstance;
+        public keyboardHookStruct lastStruct;
+        private int lastParam;
+        private keyboardHookProc delegateHolder; 
         public static globalKeyboardHook me;
+
+        internal keyboardHookProc DelegateHolder { get => delegateHolder; set => delegateHolder = value; }
         #endregion
 
 
@@ -74,11 +80,12 @@ namespace _2C2P.Helper
         /// </summary>
         public void hook()
         {
-            IntPtr hInstance = LoadLibrary("User32");
-            hhook = SetWindowsHookEx(WH_KEYBOARD_LL, hookProc, hInstance, 0);
+            hInstance = LoadLibrary("User32");
+            DelegateHolder = hookProc;
+            hhook = SetWindowsHookEx(WH_KEYBOARD_LL, DelegateHolder, hInstance, 0);
         }
 
-        public static void injectKey(Keys key, type typeValue)
+        public void injectKey(Keys key, type typeValue)
         {            
             keyboardHookStruct lParam = new keyboardHookStruct();
             lParam.vkCode = (int) KeyConverter.GetKey(key);
@@ -91,6 +98,8 @@ namespace _2C2P.Helper
             {
                 wparam = WM_SYSKEYUP;
             }
+            lastParam = wparam;
+            lastStruct = lParam;
             CallNextHookEx(me.hhook, 0, wparam, ref lParam);
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _2C2P
-{
+{     
     static class Program
     {
         /// <summary>
