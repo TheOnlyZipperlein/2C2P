@@ -1,5 +1,4 @@
 ﻿using _2C2P.ADC;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 

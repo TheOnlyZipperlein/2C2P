@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -18,6 +19,7 @@ namespace _2C2P.ADC
         private static OverlayWindow me;
         private ImageContext skills;
         private ImageContext items;
+        private Point skillsBase, itemsBase;
 
         [DllImport("user32.dll")]
         static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
@@ -28,6 +30,8 @@ namespace _2C2P.ADC
         public OverlayWindow()
         {
             InitializeComponent();
+            skillsBase = new Point(676, 832);
+            itemsBase = new Point(1333, 929);
             me = this;
             this.BackColor = Color.FromArgb(0, 0, 1);
             this.TransparencyKey = this.BackColor;
@@ -57,9 +61,17 @@ namespace _2C2P.ADC
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Pen pen = new Pen(Color.Blue);
-            Brush brush = new SolidBrush(Color.Blue);
             Graphics g = this.CreateGraphics();
+            ImageContext context = items;
+            if(context != null)
+            {
+                g.DrawImage(new Bitmap(new MemoryStream(context.raw)),itemsBase);
+            }
+            context = skills;
+            if (context != null)
+            {
+                g.DrawImage(new Bitmap(new MemoryStream(context.raw)), skillsBase);
+            }
         }
         private void OverlayWindow_Load(object sender, EventArgs e)
         {

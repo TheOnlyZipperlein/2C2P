@@ -1,8 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 using _2C2P.Helper;
-using Process.NET.Windows;
 namespace _2C2P.ADC
 {
     public class Overlay

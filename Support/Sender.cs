@@ -1,10 +1,7 @@
 ﻿using _2C2P.Helper;
-using System;
 using System.Drawing;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Net;
 using System.IO;
