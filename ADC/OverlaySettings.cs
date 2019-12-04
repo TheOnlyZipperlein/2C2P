@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _2C2P.ADC
-{
+﻿    // Example settings
     public class OverlaySettings
-    {
+{
         // 60 frames/sec roughly
         public int UpdateRate { get; set; }
 
@@ -17,4 +10,3 @@ namespace _2C2P.ADC
         public string Name { get; set; }
         public string Version { get; set; }
     }
-}

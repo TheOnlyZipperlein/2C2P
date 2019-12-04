@@ -11,7 +11,7 @@ namespace _2C2P.ADC
 {
     class Listener
     {
-        private ConcurrentQueue<ImageContext> stack;
+        public ConcurrentQueue<ImageContext> stack;
         private int port;
         private static Listener me;
 

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Capture.Interface;
 using Capture.Hook;
 using Capture;
-using System.Diagnostics;
-using System.Windows.Forms;
 using System.Threading;
 using System.Drawing;
 using EasyHook;
-using System.IO;
 
 namespace _2C2P.Support
 {
@@ -51,7 +45,7 @@ namespace _2C2P.Support
         private CaptureProcess attachProcess()
         {
             Config.Register("Capture", "Capture.dll");
-            Process proc = Process.GetProcessesByName("League of Legends")[0];
+            System.Diagnostics.Process proc = System.Diagnostics.Process.GetProcessesByName("League of Legends")[0];
 
             // If the process doesn't have a mainwindowhandle yet, skip it (we need to be able to get the hwnd to set foreground etc)
             if (proc.MainWindowHandle == IntPtr.Zero)

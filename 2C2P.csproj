@@ -87,6 +87,8 @@
     <Reference Include="Overlay.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Overlay.NET.1.0.2\lib\Overlay.NET.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Overlay.NET.1.0.2\lib\Process.NET.dll</HintPath>
     </Reference>
@@ -123,7 +125,14 @@
     <Compile Include="ADC\ADC.cs" />
     <Compile Include="ADC\Listener.cs" />
     <Compile Include="ADC\Overlay.cs" />
+    <Compile Include="ADC\OverlayLib.cs" />
     <Compile Include="ADC\OverlaySettings.cs" />
+    <Compile Include="ADC\OverlayWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADC\OverlayWindow.Designer.cs">
+      <DependentUpon>OverlayWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ADC\Sender.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -145,6 +154,9 @@
     <Compile Include="Support\Listener.cs" />
     <Compile Include="Support\Sender.cs" />
     <Compile Include="Support\Support.cs" />
+    <EmbeddedResource Include="ADC\OverlayWindow.resx">
+      <DependentUpon>OverlayWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

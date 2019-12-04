@@ -12,15 +12,21 @@ namespace _2C2P
         private object sender;
         private object listener;
         private object role;
-        private Overlay overlay;
+        private _2C2P.ADC.Overlay overlay;
         public static Image box;
         globalKeyboardHook gkh;
         Thread trd;
 
         public Form1()
-        {          
-            Options.NOT_CLOSED = true;
+        {
             InitializeComponent();
+            OverlayWindow aha = new OverlayWindow();
+            SubInitFrom1();
+        }
+
+        private void SubInitFrom1()
+        {
+            Options.NOT_CLOSED = true;
             gkh = new globalKeyboardHook();
 
             string[] args = Environment.GetCommandLineArgs();
@@ -30,7 +36,7 @@ namespace _2C2P
 
             if (args.Length == 2)
             {
-                Options.IP_TO_CONNECT_TO = args[1];                
+                Options.IP_TO_CONNECT_TO = args[1];
                 switch (args[0])
                 {
                     case "adc":
@@ -55,8 +61,6 @@ namespace _2C2P
             role = new ADC.ADC();
             overlay = new ADC.Overlay();
             Options.IS_ADC = true;
-
-            (new Thread(new ThreadStart(drawWhiteBitmap))).Start();
         }
 
         public void InitSupport()
@@ -75,15 +79,6 @@ namespace _2C2P
         private void Button1_Click(object sender, EventArgs e)
         {
             pictureBox1.Image = Support.Capture.box;
-        }
-
-        private void drawWhiteBitmap()
-        {
-            Bitmap image;
-            var b = new Bitmap(1, 1);
-            b.SetPixel(0, 0, Color.White);
-            image = new Bitmap(b, 100, 100);
-            ADC.Overlay.me.DrawBitmap(image, new Point(100, 100));
         }
     }
 }
