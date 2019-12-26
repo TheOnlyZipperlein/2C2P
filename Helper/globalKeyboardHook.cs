@@ -89,6 +89,10 @@ namespace _2C2P.Helper
         {            
             keyboardHookStruct lParam = new keyboardHookStruct();
             lParam.vkCode = (int) KeyConverter.GetKey(key);
+            lParam.flags = 0;
+            lParam.dwExtraInfo = 0;
+            lParam.scanCode = GetScanCode(key);
+            lParam.time = (int)DateTime.Now.Ticks;
             int wparam;
             if(typeValue == type.keyDown)
             {
@@ -100,7 +104,12 @@ namespace _2C2P.Helper
             }
             lastParam = wparam;
             lastStruct = lParam;
-            CallNextHookEx(me.hhook, 0, wparam, ref lParam);
+            CallNextHookEx(me.hhook, 0, 256, ref lParam);
+        }
+
+        private int GetScanCode(Keys key)
+        {
+            return KeyConverter.GetScanCode(key);
         }
 
         /// <summary>

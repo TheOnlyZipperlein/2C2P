@@ -1,11 +1,16 @@
 ﻿using _2C2P.Helper;
+using System;
 using System.Collections.Concurrent;
+using System.Runtime.InteropServices; 
 using System.Threading;
 
 namespace _2C2P.Support
 {
     class Support
     {
+        [DllImport("User32.dll")]
+        static extern bool SetCursorPos(int X, int Y);
+
         private static Support me;
 
         private ConcurrentQueue<Event> events;
@@ -33,17 +38,20 @@ namespace _2C2P.Support
                 }
                 else
                 {
+                    while(events.Count > 10) events.TryDequeue(out e);
+
                     events.TryDequeue(out e);
                     switch(e.type)
                     {
                         case (int) type.keyUp:
-                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key) e.data),(type) e.type);
+                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key) e.data),(type) e.type);                            
                             break;
                         case (int) type.keyDown:
                             globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key)e.data), (type)e.type);
+                            Console.WriteLine("Key: " + KeyConverter.GetKey((key) e.data).ToString());
                             break;
                         case (int) type.mouse:
-                            
+                            //SetCursorPos(e.x, e.y);
                             break;
                     }
                 }

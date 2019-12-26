@@ -36,6 +36,7 @@ namespace _2C2P.Support
                 stream.Read(set, 0, set.Length);
                 if (set[0] != (byte) type.mouse)
                 {
+                    x = 0;y = 0;value = 0;
                     value = ((int)set[1]) << 24;
                     value += ((int)set[2]) << 16;
                     value += ((int)set[3]) << 8;
@@ -45,11 +46,12 @@ namespace _2C2P.Support
                 }
                 else
                 {
-                    x += ((int)set[1]) << 8;
-                    x += ((int)set[2]);
-                    y += ((int)set[3]) << 8;
+                    x = 0; y = 0; value = 0;
+                    x += ((int) ((int) (set[1])) << 8);
+                    x += ((int) set[2]);
+                    y += ((int) ((int) (set[3])) << 8); ;
                     y += ((int)set[4]);
-                    Console.WriteLine("Mouseposition " + x + ":" + y + "recieved!");
+                    //Console.WriteLine("Mouseposition " + x + ":" + y + "recieved!");
                     Support.raiseEvent(new Event(set[0], x, y));
                 }
             }
