@@ -84,9 +84,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\EasyHook.dll</HintPath>
     </Reference>
-    <Reference Include="Overlay.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Overlay.NET.1.0.2\lib\Overlay.NET.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -179,5 +176,21 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="EasyHook32.dll" />
+    <Content Include="EasyHook32Svc.exe" />
+    <Content Include="EasyHook64.dll" />
+    <Content Include="EasyHook64Svc.exe" />
+    <Content Include="EasyLoad32.dll" />
+    <Content Include="EasyLoad64.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Xcopy $(ProjectDir)EasyHook32.dll $(TargetDir)
+Xcopy $(ProjectDir)EasyHook32Svc.exe $(TargetDir)
+Xcopy $(ProjectDir)EasyHook64.dll $(TargetDir)
+Xcopy $(ProjectDir)EasyHook64Svc.exe $(TargetDir)
+Xcopy $(ProjectDir)EasyLoad32.dll $(TargetDir)
+Xcopy $(ProjectDir)EasyLoad64.dll $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

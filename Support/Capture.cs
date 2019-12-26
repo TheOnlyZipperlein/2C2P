@@ -41,7 +41,7 @@ namespace _2C2P.Support
                 b = !b;
             }
         }
-
+            
         private CaptureProcess attachProcess()
         {
             Config.Register("Capture", "Capture.dll");

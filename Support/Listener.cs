@@ -1,5 +1,6 @@
 ﻿using _2C2P.Helper;
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -7,6 +8,11 @@ namespace _2C2P.Support
 {
     class Listener
     {
+        public Listener()
+        {
+            Init_Loop();
+        }
+
         private int port;
         private void Init_Loop()
         {
@@ -19,6 +25,7 @@ namespace _2C2P.Support
         {
             //Socket socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             TcpListener listener = new TcpListener(port);
+            listener.Start();
             TcpClient adcClient = listener.AcceptTcpClient();
             Boolean b = true;
             Byte[] set = new Byte[5];

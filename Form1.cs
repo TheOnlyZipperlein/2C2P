@@ -19,8 +19,7 @@ namespace _2C2P
 
         public Form1()
         {
-            InitializeComponent();
-            OverlayWindow aha = new OverlayWindow();
+            InitializeComponent();            
             SubInitFrom1();
         }
 
@@ -30,10 +29,9 @@ namespace _2C2P
             gkh = new globalKeyboardHook();
 
             string[] args = Environment.GetCommandLineArgs();
-            args = new string[2];
-            args[1] = "192.168.178.134";
-            args[0] = "adc";
-
+            args = new String[2];
+            args[0] = "sup";
+            args[1] = "192.168.178.33";
             if (args.Length == 2)
             {
                 Options.IP_TO_CONNECT_TO = args[1];
@@ -56,6 +54,7 @@ namespace _2C2P
         public void InitADC()
         {
             MouseListener mouseListener = new MouseListener();
+            OverlayWindow aha = new OverlayWindow();
             sender = new ADC.Sender();
             listener = new ADC.Listener();
             role = new ADC.ADC();
@@ -78,7 +77,6 @@ namespace _2C2P
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = Support.Capture.box;
         }
     }
 }

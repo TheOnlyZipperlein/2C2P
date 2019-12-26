@@ -15,7 +15,7 @@ namespace _2C2P.ADC
     {
         private static Sender me;
         private int port;
-        ConcurrentQueue<Event> stack;
+        public ConcurrentQueue<Event> stack;
 
         public static void sendKeyEvent(key keyValue, type keyType)
         {
@@ -24,7 +24,7 @@ namespace _2C2P.ADC
 
         public static void sendMousePos(int x, int y)
         {
-            if (me != null) me.stack.Enqueue(new Event((int)type.mouse, x, y));
+            if (me != null) me.stack.Enqueue(new Event((int)type.mouse, x, y));            
         }
 
         public Sender()
@@ -47,7 +47,9 @@ namespace _2C2P.ADC
             {
                 try
                 {
-                    client.Connect(IPAddress.Parse(Options.IP_TO_CONNECT_TO), port);
+                    IPAddress ip = IPAddress.Parse(Options.IP_TO_CONNECT_TO);
+                    client.Connect(ip, port);
+                    Console.WriteLine("Sender connected!");
                 }
                 catch (Exception e)
                 {

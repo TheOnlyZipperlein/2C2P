@@ -6,6 +6,7 @@ using System.Threading;
 using System.Net;
 using System.IO;
 using System.Drawing.Imaging;
+using System;
 
 namespace _2C2P.Support
 {
@@ -25,6 +26,7 @@ namespace _2C2P.Support
             me = this;
             this.port = 6475;
             stack = new ConcurrentQueue<ImageContext>();
+            doLoop();
         }
         private void sendImageContextFunction(ImageContext context)
         {
@@ -42,8 +44,15 @@ namespace _2C2P.Support
             TcpClient client = new TcpClient();
             while (!client.Connected)
             {
-                client.Connect(IPAddress.Parse(Options.IP_TO_CONNECT_TO), port);
-                Thread.Sleep(50);
+                try
+                {
+                    client.Connect(IPAddress.Parse(Options.IP_TO_CONNECT_TO), port);
+                    Thread.Sleep(50);
+                }
+                catch(Exception e)
+                {
+                    Thread.Sleep(200);
+                }
             }
             client.GetStream();
             NetworkStream stream = client.GetStream();
