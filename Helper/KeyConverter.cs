@@ -4,9 +4,9 @@ namespace _2C2P.Helper
 {
     class KeyConverter
     {
-        public static key GetKey(Keys formsKey)
+        public static int GetKey(Keys formsKey)
         {
-            switch (formsKey)
+            /** switch (formsKey)
             {
                 case Keys.D1:
                     return key._1;
@@ -72,6 +72,8 @@ namespace _2C2P.Helper
                     return key.F4;
             }
             return key._empty;
+            */
+            return key
         }
 
         public static Keys GetKey(key appKey)

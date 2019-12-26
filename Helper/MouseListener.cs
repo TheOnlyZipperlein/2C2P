@@ -27,7 +27,7 @@ namespace _2C2P.Helper
                 GetCursorPos(out cursorPos);
                 Sender.sendMousePos(cursorPos.X, cursorPos.Y);
                 //Console.WriteLine(cursorPos.X + " " + cursorPos.Y);
-                Thread.Sleep(5);
+                Thread.Sleep(10);
             }
         }      
     }

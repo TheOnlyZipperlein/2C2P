@@ -30,7 +30,7 @@ namespace _2C2P
 
             string[] args = Environment.GetCommandLineArgs();
             args = new String[2];
-            args[0] = "sup";
+            args[0] = "adc";
             args[1] = "192.168.178.33";
             if (args.Length == 2)
             {
