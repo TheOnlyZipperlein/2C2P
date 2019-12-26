@@ -125,7 +125,6 @@
     <Compile Include="Helper\Enum.cs" />
     <Compile Include="Helper\Event.cs" />
     <Compile Include="Helper\ImageContext.cs" />
-    <Compile Include="Helper\KeyConverter.cs" />
     <Compile Include="Helper\globalKeyboardHook.cs" />
     <Compile Include="Helper\MouseListener.cs" />
     <Compile Include="Helper\Options.cs" />

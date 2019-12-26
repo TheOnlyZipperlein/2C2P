@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices; 
 using System.Threading;
+using System.Windows.Forms;
 
 namespace _2C2P.Support
 {
@@ -44,11 +45,11 @@ namespace _2C2P.Support
                     switch(e.type)
                     {
                         case (int) type.keyUp:
-                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key) e.data),(type) e.type);                            
+                            globalKeyboardHook.me.injectKey((Keys) e.data,(type) e.type);                            
                             break;
                         case (int) type.keyDown:
-                            globalKeyboardHook.me.injectKey(KeyConverter.GetKey((key)e.data), (type)e.type);
-                            Console.WriteLine("Key: " + KeyConverter.GetKey((key) e.data).ToString());
+                            globalKeyboardHook.me.injectKey((Keys) e.data, (type)e.type);
+                            Console.WriteLine("Key: " + ((Keys)e.data).ToString());
                             break;
                         case (int) type.mouse:
                             //SetCursorPos(e.x, e.y);

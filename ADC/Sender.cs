@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Net;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace _2C2P.ADC
 {
@@ -17,9 +18,9 @@ namespace _2C2P.ADC
         private int port;
         public ConcurrentQueue<Event> stack;
 
-        public static void sendKeyEvent(key keyValue, type keyType)
+        public static void sendKeyEvent(Keys keyValue, type keyType)
         {
-            if(me!=null) me.stack.Enqueue(new Event((int) keyType, (int)keyValue));
+            if(me!=null) me.stack.Enqueue(new Event((int) keyType, (int) keyValue));
         }
 
         public static void sendMousePos(int x, int y)

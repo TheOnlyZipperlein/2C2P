@@ -88,7 +88,7 @@ namespace _2C2P.Helper
         public void injectKey(Keys key, type typeValue)
         {            
             keyboardHookStruct lParam = new keyboardHookStruct();
-            lParam.vkCode = (int) KeyConverter.GetKey(key);
+            lParam.vkCode = (int) key;
             lParam.flags = 0;
             lParam.dwExtraInfo = 0;
             lParam.scanCode = GetScanCode(key);
@@ -109,7 +109,7 @@ namespace _2C2P.Helper
 
         private int GetScanCode(Keys key)
         {
-            return KeyConverter.GetScanCode(key);
+            return 0;
         }
 
         /// <summary>

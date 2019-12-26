@@ -1,6 +1,7 @@
 ﻿using _2C2P.ADC;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace _2C2P.Helper
 {
@@ -19,7 +20,7 @@ namespace _2C2P.Helper
             if (!pressedKeys.Contains(key) && Options.IS_ADC)
             {                
                 pressedKeys.Add(key);
-                Sender.sendKeyEvent(KeyConverter.GetKey(key), type.keyDown);
+                Sender.sendKeyEvent(key, type.keyDown);
             }            
         }
         public void KeyUp(Keys key)
@@ -28,7 +29,7 @@ namespace _2C2P.Helper
             if (pressedKeys.Contains(key) && Options.IS_ADC)
             {                
                 pressedKeys.Remove(key);
-                Sender.sendKeyEvent(KeyConverter.GetKey(key), type.keyUp);
+                Sender.sendKeyEvent(key, type.keyUp);
             }
         }
     }
