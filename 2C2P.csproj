@@ -186,11 +186,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Xcopy $(ProjectDir)EasyHook32.dll $(TargetDir)
-Xcopy $(ProjectDir)EasyHook32Svc.exe $(TargetDir)
-Xcopy $(ProjectDir)EasyHook64.dll $(TargetDir)
-Xcopy $(ProjectDir)EasyHook64Svc.exe $(TargetDir)
-Xcopy $(ProjectDir)EasyLoad32.dll $(TargetDir)
-Xcopy $(ProjectDir)EasyLoad64.dll $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>Xcopy $(ProjectDir)EasyHook32.dll $(TargetDir) /y
+Xcopy $(ProjectDir)EasyHook32Svc.exe $(TargetDir) /y
+Xcopy $(ProjectDir)EasyHook64.dll $(TargetDir) /y
+Xcopy $(ProjectDir)EasyHook64Svc.exe $(TargetDir) /y
+Xcopy $(ProjectDir)EasyLoad32.dll $(TargetDir) /y
+Xcopy $(ProjectDir)EasyLoad64.dll $(TargetDir) /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
