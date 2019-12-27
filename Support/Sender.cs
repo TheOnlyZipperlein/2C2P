@@ -12,9 +12,9 @@ namespace _2C2P.Support
 {
     class Sender
     {
-        private static Sender me;
+        public static Sender me;
         private int port;
-        ConcurrentQueue<ImageContext> stack;
+        public ConcurrentQueue<ImageContext> stack;
 
         public static void sendImageContext(ImageContext context)
         {
@@ -61,7 +61,7 @@ namespace _2C2P.Support
                 while (stack.Count > 0)
                 {
                     ImageContext result = null;
-                    stack.TryDequeue(out result);
+                    stack.TryDequeue(out result);           
                     if (stack.Count > 20)
                     {
                         for (int i = 0; i < 10; i++) stack.TryDequeue(out result);
@@ -80,9 +80,18 @@ namespace _2C2P.Support
                     image.Save(ms, codec, paras);
                     byte[] byteBuffer = ms.ToArray();
                     byte[] cmd = new byte[1];
+                    byte[] size = new byte[4];
+                    size[0] =(byte) (byteBuffer.Length >> 24);
+                    size[1] = (byte)(byteBuffer.Length >> 16);
+                    size[2] = (byte)(byteBuffer.Length >> 8);
+                    size[3] = (byte)(byteBuffer.Length);
                     cmd[0] = (byte)result.region;
-                    stream.Write(cmd, 0, cmd.Length);
-                    stream.Write(byteBuffer, 0, byteBuffer.Length);
+                    byte[] sender = new byte[byteBuffer.Length + 5];
+                    cmd.CopyTo(sender, 0);
+                    size.CopyTo(sender, 1);
+                    byteBuffer.CopyTo(sender, 5);
+                    stream.Write(sender, 0, sender.Length);
+                    stream.Flush();
                 }
             }
         }
