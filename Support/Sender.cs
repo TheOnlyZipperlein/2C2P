@@ -56,22 +56,25 @@ namespace _2C2P.Support
             }
             client.GetStream();
             NetworkStream stream = client.GetStream();
-            while(stack.Count>0)
+            while (Options.NOT_CLOSED)
             {
-                ImageContext result = null;
-                stack.TryDequeue(out result);
-                if (stack.Count > 20)
-                {                    
-                    for (int i = 0; i < 10; i++) stack.TryDequeue(out result);                    
+                while (stack.Count > 0)
+                {
+                    ImageContext result = null;
+                    stack.TryDequeue(out result);
+                    if (stack.Count > 20)
+                    {
+                        for (int i = 0; i < 10; i++) stack.TryDequeue(out result);
+                    }
+                    Bitmap image = result.image;
+                    MemoryStream ms = new MemoryStream();
+                    image.Save(ms, ImageFormat.MemoryBmp);
+                    byte[] byteBuffer = ms.ToArray();
+                    byte[] cmd = new byte[1];
+                    cmd[0] = (byte)result.region;
+                    stream.Write(cmd, 0, cmd.Length);
+                    stream.Write(byteBuffer, 0, byteBuffer.Length);
                 }
-                Bitmap image = result.image;
-                MemoryStream ms = new MemoryStream();
-                image.Save(ms, ImageFormat.MemoryBmp);
-                byte[] byteBuffer = ms.ToArray();
-                byte[] cmd = new byte[1];
-                cmd[0]  = (byte) result.region;
-                stream.Write(cmd, 0, cmd.Length);
-                stream.Write(byteBuffer, 0, byteBuffer.Length);
             }
         }
     }

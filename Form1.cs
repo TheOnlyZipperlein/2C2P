@@ -30,8 +30,8 @@ namespace _2C2P
 
             string[] args = Environment.GetCommandLineArgs();
             args = new String[2];
-            args[0] = "adc";
-            args[1] = "192.168.178.33";
+            args[0] = "sup";
+            args[1] = "192.168.178.23";
             if (args.Length == 2)
             {
                 Options.IP_TO_CONNECT_TO = args[1];

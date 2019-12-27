@@ -6,6 +6,7 @@ using Capture;
 using System.Threading;
 using System.Drawing;
 using EasyHook;
+using _2C2P.Helper;
 
 namespace _2C2P.Support
 {
@@ -14,21 +15,17 @@ namespace _2C2P.Support
         DateTime now;
         int c;
 
-        public static Image box;
         private CaptureProcess leagueProcess;
-        private Boolean doingRequest;
         public Capture()
         {
-            doingRequest = false;
             leagueProcess = attachProcess();
-            now = DateTime.Now;
         }
 
         public void capture()
         {
             Boolean b=true;
             Thread.Sleep(3000);
-            while (!doingRequest)
+            while (Options.NOT_CLOSED)
             {
                 if(b)
                 {
@@ -70,6 +67,7 @@ namespace _2C2P.Support
             var captureInterface = new CaptureInterface();
             captureInterface.RemoteMessage += new MessageReceivedEvent(CaptureInterface_RemoteMessage);
             CaptureProcess reProc = new CaptureProcess(proc, cc, captureInterface);
+            capture
 
             Thread.Sleep(10);
 
@@ -91,65 +89,33 @@ namespace _2C2P.Support
 
         void DoRequestSkills()
         {
-            doingRequest = true;
-            if (DateTime.Now.Subtract(now).TotalSeconds >= 1)
-            {
-                Console.WriteLine(c);
-                c = 1;
-                now = DateTime.Now;
-            }
-            else
-            {
-                c++;
-            }
             int x = 676;
             int y = 934;
             int w = 426;
             int h = 88;
             IAsyncResult result = leagueProcess.CaptureInterface.BeginGetScreenshot(new Rectangle(x, y, w, h), new TimeSpan(0, 0, 2));
-            
-            while (!result.IsCompleted)
-            {
-                Thread.Sleep(1);
-                Task.Delay(1);
-            }
-            Callback(result);
+            Screenshot screen = leagueProcess.CaptureInterface.GetScreenshot(new Rectangle(x, y, w, h), new TimeSpan(0, 0, 2), new Size(1113, 929), ImageFormat.Bitmap);            
+            Callback(screen, ImageRegion.skills);
         }
-        void Callback(IAsyncResult result)
+        void Callback(Screenshot screen, ImageRegion region)
         {
-            using (Screenshot screenshot = leagueProcess.CaptureInterface.EndGetScreenshot(result))
-                if (screenshot != null && screenshot.Data != null)
-                    box = screenshot.ToBitmap();
-
-            doingRequest = false;
+            Bitmap box = screen.ToBitmap();
+            Sender.sendImageContext(new ImageContext()
+            {
+                image = box,
+                region = region
+            });
         }
        
             
         void DoRequestItems()
         {
-            doingRequest = true;
-            if (DateTime.Now.Subtract(now).TotalSeconds >= 1)
-            {
-                Console.WriteLine(c);
-                c = 1;
-                now = DateTime.Now;
-            }
-            else
-            {
-                c++;
-            }
             int x = 1113;
             int y = 929;
             int w = 219;
             int h = 150;
-            IAsyncResult result = leagueProcess.CaptureInterface.BeginGetScreenshot(new Rectangle(x, y, w, h), new TimeSpan(0, 0, 2));
-
-            while (!result.IsCompleted)
-            {
-                Thread.Sleep(1);
-                Task.Delay(1);
-            }
-            Callback(result);
+            Screenshot screen = leagueProcess.CaptureInterface.GetScreenshot(new Rectangle(x, y, w, h), new TimeSpan(0, 0, 2), new Size(1113,929), ImageFormat.Bitmap);
+            Callback(screen, ImageRegion.items);
         }
     }
 }

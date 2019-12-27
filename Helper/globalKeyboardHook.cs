@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using WindowsInput;
 
 namespace _2C2P.Helper
 {
@@ -9,6 +10,9 @@ namespace _2C2P.Helper
     /// <summary>
     /// A class that manages a global low level keyboard hook
     /// </summary>
+    /// 
+
+
     class globalKeyboardHook
     {
         #region Constant, Structure and Delegate Definitions
@@ -16,6 +20,8 @@ namespace _2C2P.Helper
         /// defines the callback type for the hook
         /// </summary>
         public delegate int keyboardHookProc(int code, int wParam, ref keyboardHookStruct lParam);
+
+        private InputSimulator sim;
 
         public struct keyboardHookStruct
         {
@@ -86,13 +92,14 @@ namespace _2C2P.Helper
         }
 
         public void injectKey(Keys key, type typeValue)
-        {            
-            keyboardHookStruct lParam = new keyboardHookStruct();
+        {
+            /**keyboardHookStruct lParam = new keyboardHookStruct();
             lParam.vkCode = (int) key;
             lParam.flags = 0;
             lParam.dwExtraInfo = 0;
             lParam.scanCode = GetScanCode(key);
-            lParam.time = (int)DateTime.Now.Ticks;
+            lParam.time = ((int)DateTime.Now.Ticks);
+            if (lParam.time < 0) lParam.time *= -1;
             int wparam;
             if(typeValue == type.keyDown)
             {
@@ -105,10 +112,40 @@ namespace _2C2P.Helper
             lastParam = wparam;
             lastStruct = lParam;
             CallNextHookEx(me.hhook, 0, 256, ref lParam);
+            */
+            if (sim == null) sim = new InputSimulator();
+            sim.Keyboard.KeyPress((WindowsInput.Native.VirtualKeyCode) key);
         }
 
         private int GetScanCode(Keys key)
         {
+            switch(key)
+            {
+                case Keys.Q:
+                    return 16;
+                case Keys.W:
+                    return 17;
+                case Keys.E:
+                    return 18;
+                case Keys.R:
+                    return 19;
+                case Keys.T:
+                    return 20;
+                case Keys.F1:
+                    return 59;
+                case Keys.F2:
+                    return 60;
+                case Keys.F3:
+                    return 61;
+                case Keys.F4:
+                    return 62;
+                case Keys.D:
+                    return 32;
+                case Keys.F:
+                    return 33;
+                case Keys.P:
+                    return 25;
+            }
             return 0;
         }
 
