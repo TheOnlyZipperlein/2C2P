@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using _2C2P.Helper;
 
 namespace _2C2P.ADC
@@ -16,6 +18,7 @@ namespace _2C2P.ADC
     
     public partial class OverlayWindow : Form
     {
+        private readonly ImageConverter imageConverter = new ImageConverter();
         private static OverlayWindow me;
         private ImageContext skills;
         private ImageContext items;
@@ -60,22 +63,39 @@ namespace _2C2P.ADC
         }
 
         protected override void OnPaint(PaintEventArgs e)
-        {
+        {            
             Graphics g = this.CreateGraphics();
             ImageContext context = items;
             if(context != null)
             {
+                Bitmap bitmap = GetImageFromByteArray(context.raw);
+                Form1.box = bitmap;
                 g.DrawImage(new Bitmap(new MemoryStream(context.raw)),itemsBase);
             }
             context = skills;
             if (context != null)
             {
+                MemoryStream ms = new MemoryStream(context.raw);
+                Bitmap bitmap = GetImageFromByteArray(context.raw);
                 g.DrawImage(new Bitmap(new MemoryStream(context.raw)), skillsBase);
             }
         }
         private void OverlayWindow_Load(object sender, EventArgs e)
         {
             
+        }
+        private Bitmap GetImageFromByteArray(byte[] byteArray)
+        {
+            Bitmap bm = (Bitmap) imageConverter.ConvertFrom(byteArray);
+
+            if (bm != null && (bm.HorizontalResolution != (int)bm.HorizontalResolution ||
+                               bm.VerticalResolution != (int)bm.VerticalResolution))
+            {
+                bm.SetResolution((int)(bm.HorizontalResolution + 0.5f),
+                                 (int)(bm.VerticalResolution + 0.5f));
+            }
+
+            return bm;
         }
     }
 }

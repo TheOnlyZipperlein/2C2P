@@ -67,7 +67,7 @@ namespace _2C2P.Support
                         for (int i = 0; i < 10; i++) stack.TryDequeue(out result);
                     }
                     Bitmap image = result.image;
-                    ImageCodecInfo[] myCodecs = ImageCodecInfo.GetImageEncoders();
+                    /**ImageCodecInfo[] myCodecs = ImageCodecInfo.GetImageEncoders();
                     ImageCodecInfo codec = null;
                     foreach (ImageCodecInfo tCodec in myCodecs)
                     {
@@ -78,20 +78,26 @@ namespace _2C2P.Support
                     EncoderParameters paras = new EncoderParameters(1);
                     paras.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
                     image.Save(ms, codec, paras);
-                    byte[] byteBuffer = ms.ToArray();
+                    */
+                    byte[] byteBuffer = null;
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        image.Save(memoryStream, ImageFormat.Png);
+                        byteBuffer = memoryStream.ToArray();
+                    }                    
                     byte[] cmd = new byte[1];
                     byte[] size = new byte[4];
-                    size[0] =(byte) (byteBuffer.Length >> 24);
-                    size[1] = (byte)(byteBuffer.Length >> 16);
-                    size[2] = (byte)(byteBuffer.Length >> 8);
-                    size[3] = (byte)(byteBuffer.Length);
-                    cmd[0] = (byte)result.region;
+                    size[0] = (byte) (byteBuffer.Length >> 24);
+                    size[1] = (byte) (byteBuffer.Length >> 16);
+                    size[2] = (byte) (byteBuffer.Length >> 8);
+                    size[3] = (byte) (byteBuffer.Length);
+                    cmd[0] = (byte) result.region;
                     byte[] sender = new byte[byteBuffer.Length + 5];
                     cmd.CopyTo(sender, 0);
                     size.CopyTo(sender, 1);
                     byteBuffer.CopyTo(sender, 5);
                     stream.Write(sender, 0, sender.Length);
-                    stream.Flush();
+                    stream.Flush();   
                 }
             }
         }

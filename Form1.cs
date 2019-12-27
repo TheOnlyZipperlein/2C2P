@@ -48,7 +48,8 @@ namespace _2C2P
         }
         protected override void SetVisibleCore(bool value)
         {
-            base.SetVisibleCore(false);
+            base.SetVisibleCore(value);
+            //base.SetVisibleCore(false);
         }
 
         public void InitADC()
@@ -77,6 +78,7 @@ namespace _2C2P
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            this.Refresh();
         }
     }
 }
