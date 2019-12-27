@@ -67,8 +67,17 @@ namespace _2C2P.Support
                         for (int i = 0; i < 10; i++) stack.TryDequeue(out result);
                     }
                     Bitmap image = result.image;
+                    ImageCodecInfo[] myCodecs = ImageCodecInfo.GetImageEncoders();
+                    ImageCodecInfo codec = null;
+                    foreach (ImageCodecInfo tCodec in myCodecs)
+                    {
+                        if (tCodec.CodecName == "Built-in BMP Codec") codec = tCodec;
+
+                    }
                     MemoryStream ms = new MemoryStream();
-                    image.Save(ms, ImageFormat.MemoryBmp);
+                    EncoderParameters paras = new EncoderParameters(1);
+                    paras.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
+                    image.Save(ms, codec, paras);
                     byte[] byteBuffer = ms.ToArray();
                     byte[] cmd = new byte[1];
                     cmd[0] = (byte)result.region;
