@@ -19,7 +19,7 @@ namespace _2C2P.Support
             Boolean b=true;
             Thread.Sleep(3000);
             while (Options.NOT_CLOSED)
-            {
+            {                
                 if(b)
                 {
                     DoRequestItems();
@@ -27,6 +27,10 @@ namespace _2C2P.Support
                 else
                 {
                     DoRequestSkills();
+                    while(Sender.me.stack.Count>=10)
+                    {
+                        Thread.Sleep(10);
+                    }
                 }
                 b = !b;
             }
