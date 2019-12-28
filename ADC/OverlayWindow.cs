@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Media.Imaging;
 using _2C2P.Helper;
 
 namespace _2C2P.ADC
@@ -60,17 +54,20 @@ namespace _2C2P.ADC
                 case ImageRegion.enumNull:
                     break;
             }
+            me.OnPaint(new PaintEventArgs(me.CreateGraphics(), new Rectangle(0, 0, 1920, 1080)));
+            Thread.Sleep(50);
         }
 
         protected override void OnPaint(PaintEventArgs e)
-        {            
+        {
+            base.OnPaint(e);
             Graphics g = this.CreateGraphics();
             ImageContext context = items;
             if(context != null)
             {
                 Bitmap bitmap = GetImageFromByteArray(context.raw);
                 Form1.box = bitmap;
-                g.DrawImage(new Bitmap(new MemoryStream(context.raw)),itemsBase);
+                g.DrawImage(new Bitmap(new MemoryStream(context.raw)), itemsBase);
             }
             context = skills;
             if (context != null)
@@ -86,15 +83,17 @@ namespace _2C2P.ADC
         }
         private Bitmap GetImageFromByteArray(byte[] byteArray)
         {
-            Bitmap bm = (Bitmap) imageConverter.ConvertFrom(byteArray);
+            Bitmap bm = null;
 
-            if (bm != null && (bm.HorizontalResolution != (int)bm.HorizontalResolution ||
-                               bm.VerticalResolution != (int)bm.VerticalResolution))
-            {
-                bm.SetResolution((int)(bm.HorizontalResolution + 0.5f),
-                                 (int)(bm.VerticalResolution + 0.5f));
+            try
+            { 
+                Image image = Image.FromStream(new MemoryStream(byteArray), true, false);
+                bm = new Bitmap(image);
             }
-
+            catch(Exception e)
+            {
+                
+            }
             return bm;
         }
     }

@@ -24,6 +24,10 @@ namespace _2C2P.ADC
             {
                 me.stack.TryDequeue(out image);
             }
+            if(me.stack.Count>10)
+            {
+                me.stack=new ConcurrentQueue<ImageContext>();
+            }
             return image;
         }
 
@@ -42,6 +46,8 @@ namespace _2C2P.ADC
             TcpListener listener = new TcpListener(port);
             listener.Start();
             TcpClient adcClient = listener.AcceptTcpClient();
+            adcClient.ReceiveBufferSize = 50000;
+            adcClient.SendBufferSize = 50000;
             Byte[] set = new Byte[5];
             NetworkStream stream = adcClient.GetStream();
             byte[] cmd = new Byte[1];
@@ -60,14 +66,33 @@ namespace _2C2P.ADC
                     length += (int) (size[3]);
 
                     byte[] byteBuffer = new byte[length];
-                    stream.Read(byteBuffer, 0, byteBuffer.Length);
+                    int i = 0;
+                    while(i!=byteBuffer.Length-1)
+                    {
+                        if (stream.DataAvailable)
+                        {
+                            byteBuffer[i] = (byte)stream.ReadByte();
+                            i++;
+                        }
+                        else
+                        {
+                            Thread.Sleep(1);
+                        }
+                    }
+                    while(stream.DataAvailable)
+                    {
+                        if(stream.ReadByte()==-1) break;
+                    }
                     stack.Enqueue(new ImageContext()
                     {
                         raw = (byteBuffer),
                         region = region
                     });
-                    Thread.Sleep(5);
+                    byte[] ok = new byte[1];
+                    ok[0] = 223;
+                    stream.Write(ok, 0, ok.Length);                    
                 }
+                Thread.Sleep(1);
             }
         }
     }

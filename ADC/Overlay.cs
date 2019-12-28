@@ -29,7 +29,7 @@ namespace _2C2P.ADC
             }
             else
             {
-                Thread.Sleep(1);
+                Thread.Sleep(50);
             }
         }
 

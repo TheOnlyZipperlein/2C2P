@@ -109,7 +109,6 @@
     <Compile Include="ADC\ADC.cs" />
     <Compile Include="ADC\Listener.cs" />
     <Compile Include="ADC\Overlay.cs" />
-    <Compile Include="ADC\OverlayLib.cs" />
     <Compile Include="ADC\OverlaySettings.cs" />
     <Compile Include="ADC\OverlayWindow.cs">
       <SubType>Form</SubType>
