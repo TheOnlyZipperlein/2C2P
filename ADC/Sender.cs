@@ -54,7 +54,7 @@ namespace _2C2P.ADC
                 }
                 catch (Exception e)
                 {
-                    //TODO
+                    Thread.Sleep(1);
                 }
                 Thread.Sleep(50);
             }

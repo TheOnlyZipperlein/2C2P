@@ -92,7 +92,7 @@ namespace _2C2P.ADC
             }
             catch(Exception e)
             {
-                
+                Thread.Sleep(1);
             }
             return bm;
         }

@@ -49,7 +49,7 @@ namespace _2C2P
         protected override void SetVisibleCore(bool value)
         {
             base.SetVisibleCore(value);
-            //base.SetVisibleCore(false);
+            base.SetVisibleCore(false);
         }
 
         public void InitADC()
