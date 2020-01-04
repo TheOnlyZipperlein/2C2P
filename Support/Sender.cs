@@ -54,6 +54,8 @@ namespace _2C2P.Support
                     Thread.Sleep(200);
                 }
             }
+            client.ReceiveBufferSize = 50000;
+            client.SendBufferSize = 50000;
             client.GetStream();
             NetworkStream stream = client.GetStream();
             while (Options.NOT_CLOSED)
@@ -61,43 +63,37 @@ namespace _2C2P.Support
                 while (stack.Count > 0)
                 {
                     ImageContext result = null;
-                    stack.TryDequeue(out result);           
+                    stack.TryDequeue(out result);
                     if (stack.Count > 20)
                     {
                         for (int i = 0; i < 10; i++) stack.TryDequeue(out result);
                     }
                     Bitmap image = result.image;
-                    /**ImageCodecInfo[] myCodecs = ImageCodecInfo.GetImageEncoders();
-                    ImageCodecInfo codec = null;
-                    foreach (ImageCodecInfo tCodec in myCodecs)
-                    {
-                        if (tCodec.CodecName == "Built-in BMP Codec") codec = tCodec;
-
-                    }
-                    MemoryStream ms = new MemoryStream();
-                    EncoderParameters paras = new EncoderParameters(1);
-                    paras.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
-                    image.Save(ms, codec, paras);
-                    */
                     byte[] byteBuffer = null;
-                    using (MemoryStream memoryStream = new MemoryStream())
-                    {
-                        image.Save(memoryStream, ImageFormat.Png);
-                        byteBuffer = memoryStream.ToArray();
-                    }                    
+                    MemoryStream memoryStream = new MemoryStream();
+                    image.Save(memoryStream, ImageFormat.Tiff);
+                    memoryStream.Flush();
+                    byteBuffer = memoryStream.ToArray();
+                    Bitmap bmp = new Bitmap(new MemoryStream(byteBuffer));
+                    memoryStream.Close();
                     byte[] cmd = new byte[1];
                     byte[] size = new byte[4];
-                    size[0] = (byte) (byteBuffer.Length >> 24);
-                    size[1] = (byte) (byteBuffer.Length >> 16);
-                    size[2] = (byte) (byteBuffer.Length >> 8);
-                    size[3] = (byte) (byteBuffer.Length);
-                    cmd[0] = (byte) result.region;
+                    size[0] = (byte)(byteBuffer.Length >> 24);
+                    size[1] = (byte)(byteBuffer.Length >> 16);
+                    size[2] = (byte)(byteBuffer.Length >> 8);
+                    size[3] = (byte)(byteBuffer.Length);
+                    cmd[0] = (byte)result.region;
                     byte[] sender = new byte[byteBuffer.Length + 5];
                     cmd.CopyTo(sender, 0);
                     size.CopyTo(sender, 1);
                     byteBuffer.CopyTo(sender, 5);
-                    stream.Write(sender, 0, sender.Length);
-                    stream.Flush();   
+                    stream.Write(sender, 0, sender.Length); 
+                    byte[] ok = new byte[1];
+                    while (ok[0] != 223)
+                    {
+                         stream.Read(ok, 0, ok.Length);
+                        Thread.Sleep(5);
+                    }               
                 }
             }
         }

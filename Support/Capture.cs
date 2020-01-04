@@ -5,6 +5,7 @@ using System.Drawing;
 using _2C2P.Helper;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace _2C2P.Support
 {
@@ -12,7 +13,8 @@ namespace _2C2P.Support
     {
         public Capture()
         {
-        }
+        }       
+
 
         public void capture()
         {
@@ -27,10 +29,11 @@ namespace _2C2P.Support
                 else
                 {
                     DoRequestSkills();
-                    while(Sender.me.stack.Count>=10)
+                    while(Sender.me.stack.Count>=2)
                     {
                         Thread.Sleep(10);
                     }
+                    Thread.Sleep(50);
                 }
                 b = !b;
             }
@@ -42,9 +45,9 @@ namespace _2C2P.Support
             int y = 934;
             int w = 426;
             int h = 88;
-            Bitmap screen = new Bitmap(w, h, PixelFormat.Format32bppArgb);
-            var gfxScreenshotSkills = Graphics.FromImage(screen);
-            gfxScreenshotSkills.CopyFromScreen(x, y, 0, 0, new Size(w, h), CopyPixelOperation.SourceCopy);
+            Bitmap screen = new Bitmap(w, h, PixelFormat.Format24bppRgb);
+            var gfxScreenshot = Graphics.FromImage(screen);
+            gfxScreenshot.CopyFromScreen(x, y, 0, 0, new Size(w, h), CopyPixelOperation.SourcePaint);            
             Callback(screen, ImageRegion.skills);
         }           
             
@@ -54,9 +57,9 @@ namespace _2C2P.Support
             int y = 929;
             int w = 219;
             int h = 150;
-            Bitmap screen = new Bitmap(w, h, PixelFormat.Format32bppArgb);
-            var gfxScreenshotItems = Graphics.FromImage(screen);
-            gfxScreenshotItems.CopyFromScreen(x, y, 0, 0, new Size(w, h), CopyPixelOperation.SourceCopy);
+            Bitmap screen = new Bitmap(w, h, PixelFormat.Format24bppRgb);
+            var gfxScreenshot = Graphics.FromImage(screen);
+            gfxScreenshot.CopyFromScreen(x, y, 0, 0, new Size(w, h), CopyPixelOperation.SourcePaint);
             Callback(screen, ImageRegion.items);
         }
 

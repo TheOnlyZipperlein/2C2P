@@ -45,14 +45,14 @@ namespace _2C2P.Support
                     switch(e.type)
                     {
                         case (int) type.keyUp:
-                            globalKeyboardHook.me.injectKey((Keys) e.data,(type) e.type);                            
+                            //globalKeyboardHook.me.injectKey((Keys) e.data,(type) e.type);                            
                             break;
                         case (int) type.keyDown:
                             globalKeyboardHook.me.injectKey((Keys) e.data, (type)e.type);
                             Console.WriteLine("Key: " + ((Keys)e.data).ToString());
                             break;
                         case (int) type.mouse:
-                            //SetCursorPos(e.x, e.y);
+                            SetCursorPos(e.x, e.y);
                             break;
                     }
                 }
